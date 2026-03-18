@@ -1,0 +1,8 @@
+services:
+  structurizr:
+    image: structurizr/lite
+    container_name: duckbank-structurizr
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./structurizr:/usr/local/structurizr
