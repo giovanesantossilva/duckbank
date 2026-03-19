@@ -1,8 +1,12 @@
 services:
   structurizr:
-    image: structurizr/lite
-    container_name: duckbank-structurizr
+    image: structurizr/structurizr
+    container_name: structurizr
+    command: local
     ports:
       - "8080:8080"
     volumes:
       - ./structurizr:/usr/local/structurizr
+    environment:
+      - STRUCTURIZR_WORKSPACE_PATH=/usr/local/structurizr
+    restart: always
