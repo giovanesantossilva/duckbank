@@ -15,6 +15,7 @@ DuckBank is a white-label digital banking system developed for study purposes, f
 ### documentation
 - C4 Model (Structurizr)
 - MER (Lucidchart)
+- Event Sotorming 
 
 ## Technologies (in definition)
 

@@ -2,7 +2,7 @@
   "configuration" : { },
   "documentation" : { },
   "id" : 1,
-  "lastModifiedDate" : "2026-03-19T21:20:58Z",
+  "lastModifiedDate" : "2026-03-24T17:51:30Z",
   "model" : {
     "people" : [ {
       "description" : "User who will manage your bank account",
@@ -14,18 +14,12 @@
       "relationships" : [ {
         "description" : "Manage your bank account",
         "destinationId" : "2",
-        "id" : "7",
-        "sourceId" : "1",
-        "tags" : "Relationship"
-      }, {
-        "description" : "Uses",
-        "destinationId" : "3",
         "id" : "8",
         "sourceId" : "1",
         "tags" : "Relationship"
       }, {
         "description" : "Uses",
-        "destinationId" : "4",
+        "destinationId" : "3",
         "id" : "9",
         "sourceId" : "1",
         "tags" : "Relationship"
@@ -41,7 +35,7 @@
           "structurizr.dsl.identifier" : "DuckBank.web"
         },
         "relationships" : [ {
-          "destinationId" : "5",
+          "destinationId" : "4",
           "id" : "10",
           "sourceId" : "3",
           "tags" : "Relationship"
@@ -49,43 +43,67 @@
         "tags" : "Element,Container,Web Application",
         "technology" : "React"
       }, {
+        "description" : "Redirects traffic",
         "documentation" : { },
         "id" : "4",
-        "name" : "Mobile",
+        "name" : "API Gateway",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.mobile"
+          "structurizr.dsl.identifier" : "DuckBank.gateway"
         },
         "relationships" : [ {
           "destinationId" : "5",
           "id" : "11",
           "sourceId" : "4",
           "tags" : "Relationship"
-        } ],
-        "tags" : "Element,Container,Mobile",
-        "technology" : "Fluter"
-      }, {
-        "documentation" : { },
-        "id" : "5",
-        "name" : "API Gateway",
-        "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.gateway"
-        },
-        "relationships" : [ {
+        }, {
           "destinationId" : "6",
           "id" : "12",
-          "sourceId" : "5",
+          "sourceId" : "4",
           "tags" : "Relationship"
         } ],
         "tags" : "Element,Container,Gateway",
         "technology" : "Kong"
       }, {
+        "description" : "Manage user",
+        "documentation" : { },
+        "id" : "5",
+        "name" : "User Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "DuckBank.userService"
+        },
+        "relationships" : [ {
+          "destinationId" : "7",
+          "id" : "13",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,API",
+        "technology" : "Symfony"
+      }, {
+        "description" : "Manage account",
         "documentation" : { },
         "id" : "6",
+        "name" : "Account Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "DuckBank.acctountService"
+        },
+        "relationships" : [ {
+          "destinationId" : "7",
+          "id" : "14",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,API",
+        "technology" : "Symfony"
+      }, {
+        "documentation" : { },
+        "id" : "7",
         "name" : "Database Schema",
         "properties" : {
           "structurizr.dsl.identifier" : "DuckBank.database"
         },
-        "tags" : "Element,Container,Database"
+        "tags" : "Element,Container,Database",
+        "technology" : "PostgreSQL"
       } ],
       "description" : "Banking services platform",
       "documentation" : { },
@@ -100,7 +118,7 @@
   "name" : "DuckBank",
   "properties" : {
     "structurizr.inspection.error" : "17",
-    "structurizr.dsl" : "d29ya3NwYWNlICJEdWNrQmFuayIgIiIgewogICAgIWlkZW50aWZpZXJzIGhpZXJhcmNoaWNhbAoKICAgIG1vZGVsIHsKICAgICAgICB1c2VyID0gcGVyc29uICJVc2VyIiAiVXNlciB3aG8gd2lsbCBtYW5hZ2UgeW91ciBiYW5rIGFjY291bnQiCiAgICAgICAgRHVja0JhbmsgPSBzb2Z0d2FyZVN5c3RlbSAiRHVja0JhbmsiICJCYW5raW5nIHNlcnZpY2VzIHBsYXRmb3JtIiB7CiAgICAgICAgICAgIHdlYiA9IGNvbnRhaW5lciAiV2ViIEFwcGxpY2F0aW9uIiAiIiAiUmVhY3QiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIldlYiBBcHBsaWNhdGlvbiIKICAgICAgICAgICAgfQogICAgICAgICAgICBtb2JpbGUgPSBjb250YWluZXIgIk1vYmlsZSIgIiIgIkZsdXRlciIgewogICAgICAgICAgICAgICAgdGFncyAiTW9iaWxlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGdhdGV3YXkgPSBjb250YWluZXIgIkFQSSBHYXRld2F5IiAiIiAiS29uZyIgewogICAgICAgICAgICAgICAgdGFncyAiR2F0ZXdheSIKICAgICAgICAgICAgfQogICAgICAgICAgICBkYXRhYmFzZSA9IGNvbnRhaW5lciAiRGF0YWJhc2UgU2NoZW1hIiB7CiAgICAgICAgICAgICAgICB0YWdzICJEYXRhYmFzZSIKICAgICAgICAgICAgfQogICAgICAgIH0KICAgICAgICB1c2VyIC0+IER1Y2tCYW5rICJNYW5hZ2UgeW91ciBiYW5rIGFjY291bnQiCiAgICAgICAgdXNlciAtPiBEdWNrQmFuay53ZWIgIlVzZXMiCiAgICAgICAgdXNlciAtPiBEdWNrQmFuay5tb2JpbGUgIlVzZXMiCiAgICAgICAgRHVja0Jhbmsud2ViIC0+IER1Y2tCYW5rLmdhdGV3YXkgIiIKICAgICAgICBEdWNrQmFuay5tb2JpbGUgLT4gRHVja0JhbmsuZ2F0ZXdheSAiIgogICAgICAgIER1Y2tCYW5rLmdhdGV3YXkgLT4gRHVja0JhbmsuZGF0YWJhc2UKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgc3lzdGVtQ29udGV4dCBEdWNrQmFuayAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICB9CiAgICAgICAgY29udGFpbmVyIER1Y2tCYW5rICJDb250YWluZXIiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIGVsZW1lbnQgIkVsZW1lbnQiIHsKICAgICAgICAgICAgICAgIGNvbG9yIHdoaXRlCiAgICAgICAgICAgICAgICBzdHJva2VXaWR0aCA0CiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiU29mdHdhcmUgU3lzdGVtIiB7CiAgICAgICAgICAgICAgICBzdHJva2UgIzExNjhCRAogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIlBlcnNvbiIgewogICAgICAgICAgICAgICAgc2hhcGUgcGVyc29uCiAgICAgICAgICAgICAgICBzdHJva2UgIzJhN2QwNQogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkRhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBjeWxpbmRlcgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQp9",
+    "structurizr.dsl" : "d29ya3NwYWNlICJEdWNrQmFuayIgIiIgewogICAgIWlkZW50aWZpZXJzIGhpZXJhcmNoaWNhbAoKICAgIG1vZGVsIHsKICAgICAgICB1c2VyID0gcGVyc29uICJVc2VyIiAiVXNlciB3aG8gd2lsbCBtYW5hZ2UgeW91ciBiYW5rIGFjY291bnQiCiAgICAgICAgRHVja0JhbmsgPSBzb2Z0d2FyZVN5c3RlbSAiRHVja0JhbmsiICJCYW5raW5nIHNlcnZpY2VzIHBsYXRmb3JtIiB7CiAgICAgICAgICAgIHdlYiA9IGNvbnRhaW5lciAiV2ViIEFwcGxpY2F0aW9uIiAiIiAiUmVhY3QiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIldlYiBBcHBsaWNhdGlvbiIKICAgICAgICAgICAgfQogICAgICAgICAgICBnYXRld2F5ID0gY29udGFpbmVyICJBUEkgR2F0ZXdheSIgIlJlZGlyZWN0cyB0cmFmZmljIiAiS29uZyIgewogICAgICAgICAgICAgICAgdGFncyAiR2F0ZXdheSIKICAgICAgICAgICAgfQogICAgICAgICAgICB1c2VyU2VydmljZSA9IGNvbnRhaW5lciAiVXNlciBTZXJ2aWNlIiAiTWFuYWdlIHVzZXIiICJTeW1mb255IiB7CiAgICAgICAgICAgICAgICB0YWdzICJBUEkiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYWNjdG91bnRTZXJ2aWNlID0gY29udGFpbmVyICJBY2NvdW50IFNlcnZpY2UiICJNYW5hZ2UgYWNjb3VudCIgIlN5bWZvbnkiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkFQSSIKICAgICAgICAgICAgfQogICAgICAgICAgICBkYXRhYmFzZSA9IGNvbnRhaW5lciAiRGF0YWJhc2UgU2NoZW1hIiAiIiAiUG9zdGdyZVNRTCIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICAgICAgdXNlciAtPiBEdWNrQmFuayAiTWFuYWdlIHlvdXIgYmFuayBhY2NvdW50IgogICAgICAgIHVzZXIgLT4gRHVja0Jhbmsud2ViICJVc2VzIgogICAgICAgIER1Y2tCYW5rLndlYiAtPiBEdWNrQmFuay5nYXRld2F5ICIiCiAgICAgICAgRHVja0JhbmsuZ2F0ZXdheSAtPiBEdWNrQmFuay51c2VyU2VydmljZSAiIgogICAgICAgIER1Y2tCYW5rLmdhdGV3YXkgLT4gRHVja0JhbmsuYWNjdG91bnRTZXJ2aWNlICIiCiAgICAgICAgRHVja0JhbmsudXNlclNlcnZpY2UgLT4gRHVja0JhbmsuZGF0YWJhc2UgIiIKICAgICAgICBEdWNrQmFuay5hY2N0b3VudFNlcnZpY2UgLT4gRHVja0JhbmsuZGF0YWJhc2UgIiIKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgc3lzdGVtQ29udGV4dCBEdWNrQmFuayAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICB9CiAgICAgICAgY29udGFpbmVyIER1Y2tCYW5rICJDb250YWluZXIiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIGVsZW1lbnQgIkVsZW1lbnQiIHsKICAgICAgICAgICAgICAgIGNvbG9yIHdoaXRlCiAgICAgICAgICAgICAgICBzdHJva2VXaWR0aCA0CiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiU29mdHdhcmUgU3lzdGVtIiB7CiAgICAgICAgICAgICAgICBzdHJva2UgIzExNjhCRAogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIlBlcnNvbiIgewogICAgICAgICAgICAgICAgc2hhcGUgcGVyc29uCiAgICAgICAgICAgICAgICBzdHJva2UgIzJhN2QwNQogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkRhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBjeWxpbmRlcgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQp9",
     "structurizr.inspection.info" : "0",
     "structurizr.inspection.ignore" : "0",
     "structurizr.inspection.warning" : "0"
@@ -147,6 +165,10 @@
         "id" : "6",
         "x" : 0,
         "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
       } ],
       "externalSoftwareSystemBoundariesVisible" : false,
       "key" : "Container",
@@ -159,7 +181,9 @@
       }, {
         "id" : "12"
       }, {
-        "id" : "8"
+        "id" : "13"
+      }, {
+        "id" : "14"
       }, {
         "id" : "9"
       } ],
@@ -180,7 +204,7 @@
       "name" : "System Context View: DuckBank",
       "order" : 1,
       "relationships" : [ {
-        "id" : "7"
+        "id" : "8"
       } ],
       "softwareSystemId" : "2"
     } ]

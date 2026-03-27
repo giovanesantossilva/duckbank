@@ -7,22 +7,26 @@ workspace "DuckBank" "" {
             web = container "Web Application" "" "React" {
                 tags "Web Application"
             }
-            mobile = container "Mobile" "" "Fluter" {
-                tags "Mobile"
-            }
-            gateway = container "API Gateway" "" "Kong" {
+            gateway = container "API Gateway" "Redirects traffic" "Kong" {
                 tags "Gateway"
             }
-            database = container "Database Schema" {
+            userService = container "User Service" "Manage user" "Symfony" {
+                tags "API"
+            }
+            acctountService = container "Account Service" "Manage account" "Symfony" {
+                tags "API"
+            }
+            database = container "Database Schema" "" "PostgreSQL" {
                 tags "Database"
             }
         }
         user -> DuckBank "Manage your bank account"
         user -> DuckBank.web "Uses"
-        user -> DuckBank.mobile "Uses"
         DuckBank.web -> DuckBank.gateway ""
-        DuckBank.mobile -> DuckBank.gateway ""
-        DuckBank.gateway -> DuckBank.database
+        DuckBank.gateway -> DuckBank.userService ""
+        DuckBank.gateway -> DuckBank.acctountService ""
+        DuckBank.userService -> DuckBank.database ""
+        DuckBank.acctountService -> DuckBank.database ""
     }
 
     views {
