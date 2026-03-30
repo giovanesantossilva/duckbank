@@ -2,39 +2,64 @@ workspace "DuckBank" "" {
     !identifiers hierarchical
 
     model {
-        user = person "User" "User who will manage your bank account"
+        user = person "User" "User who manages bank accounts"
         DuckBank = softwareSystem "DuckBank" "Banking services platform" {
-            web = container "Web Application" "" "React" {
+            web = container "Web Application" "Frontend Application" "React" {
                 tags "Web Application"
             }
-            gateway = container "API Gateway" "Redirects traffic" "Kong" {
+            gateway = container "API Gateway" "Handles routing and rate limiting" "Kong" {
                 tags "Gateway"
             }
-            userService = container "User Service" "Manage user" "Symfony" {
-                tags "API"
+            authService = container "Auth Service" "Handles authentication and sessions" "Symfony" {
+                tags "Service"
             }
-            acctountService = container "Account Service" "Manage account" "Symfony" {
-                tags "API"
+            userService = container "User Service" "Manages user data and lifecycle" "Symfony" {
+                tags "Service"
             }
-            database = container "Database Schema" "" "PostgreSQL" {
+            accaountService = container "Account Service" "Manages accounts and balances" "Go Lang" {
+                tags "Service"
+            }
+            transactionService = container "Transaction Service" "Handles transactions and orchestrates transfers" "HyperF" {
+                tags "Service"
+            }
+            userDatabase = container "User Database" "Stores user data" "PostgreSQL" {
+                tags "Database"
+            }
+            accaountDatabase = container "Account Database" "Stores account data" "PostgreSQL" {
+                tags "Database"
+            }
+            transactionDatabase = container "Transaction Database" "Stores transaction data" "PostgreSQL" {
+                tags "Database"
+            }
+            queue = container "Message Broker" "Event-driven communication" "RabbitMQ" {
+                tags "Queue"
+            }
+            memoryDatabase = container "Database Memory" "Cache, sessions and temporary data" "Redis" {
                 tags "Database"
             }
         }
-        user -> DuckBank "Manage your bank account"
-        user -> DuckBank.web "Uses"
-        DuckBank.web -> DuckBank.gateway ""
-        DuckBank.gateway -> DuckBank.userService ""
-        DuckBank.gateway -> DuckBank.acctountService ""
-        DuckBank.userService -> DuckBank.database ""
-        DuckBank.acctountService -> DuckBank.database ""
+        user -> DuckBank.web "Uses" "HTTP"
+        DuckBank.web -> DuckBank.gateway "Send request" "HTTP"
+        DuckBank.gateway -> DuckBank.authService "Auth requests" "HTTP"
+        DuckBank.gateway -> DuckBank.userService "User requests" "HTTP"
+        DuckBank.gateway -> DuckBank.accaountService "Account requests" "HTTP"
+        DuckBank.gateway -> DuckBank.transactionService "Transaction requets" "HTTP"
+        DuckBank.authService -> DuckBank.memoryDatabase "Stores sessions" "TCP"
+        DuckBank.userService -> DuckBank.userDatabase "Reads/Writes" "TCP"
+        DuckBank.accaountService -> DuckBank.accaountDatabase "Reads/Writes" "TCP"
+        DuckBank.transactionService -> DuckBank.transactionDatabase "Reads/Writes" "TCP"
+        DuckBank.transactionService -> DuckBank.queue "Publish TransactionCreated" "AMQP"
+        DuckBank.transactionService -> DuckBank.accaountService "Debit/Credit account" "HTTP"
     }
 
     views {
         systemContext DuckBank "SystemContext" {
             include *
+            autolayout lr
         }
         container DuckBank "Container" {
             include *
+            autolayout lr
         }
         styles {
             element "Element" {
@@ -50,6 +75,11 @@ workspace "DuckBank" "" {
             }
             element "Database" {
                 shape cylinder
+            }
+            element "Queue" {
+                shape RoundedBox
+                color "#ffffff"
+                border "Dashed"
             }
         }
     }

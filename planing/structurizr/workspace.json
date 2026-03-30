@@ -2,32 +2,35 @@
   "configuration" : { },
   "documentation" : { },
   "id" : 1,
-  "lastModifiedDate" : "2026-03-24T17:51:30Z",
+  "lastModifiedDate" : "2026-03-30T17:52:06Z",
   "model" : {
     "people" : [ {
-      "description" : "User who will manage your bank account",
+      "description" : "User who manages bank accounts",
       "id" : "1",
       "name" : "User",
       "properties" : {
         "structurizr.dsl.identifier" : "user"
       },
       "relationships" : [ {
-        "description" : "Manage your bank account",
-        "destinationId" : "2",
-        "id" : "8",
-        "sourceId" : "1",
-        "tags" : "Relationship"
-      }, {
         "description" : "Uses",
         "destinationId" : "3",
-        "id" : "9",
+        "id" : "14",
         "sourceId" : "1",
-        "tags" : "Relationship"
+        "tags" : "Relationship",
+        "technology" : "HTTP"
+      }, {
+        "description" : "Uses",
+        "destinationId" : "2",
+        "id" : "15",
+        "linkedRelationshipId" : "14",
+        "sourceId" : "1",
+        "technology" : "HTTP"
       } ],
       "tags" : "Element,Person"
     } ],
     "softwareSystems" : [ {
       "containers" : [ {
+        "description" : "Frontend Application",
         "documentation" : { },
         "id" : "3",
         "name" : "Web Application",
@@ -35,15 +38,17 @@
           "structurizr.dsl.identifier" : "DuckBank.web"
         },
         "relationships" : [ {
+          "description" : "Send request",
           "destinationId" : "4",
-          "id" : "10",
+          "id" : "16",
           "sourceId" : "3",
-          "tags" : "Relationship"
+          "tags" : "Relationship",
+          "technology" : "HTTP"
         } ],
         "tags" : "Element,Container,Web Application",
         "technology" : "React"
       }, {
-        "description" : "Redirects traffic",
+        "description" : "Handles routing and rate limiting",
         "documentation" : { },
         "id" : "4",
         "name" : "API Gateway",
@@ -51,59 +56,172 @@
           "structurizr.dsl.identifier" : "DuckBank.gateway"
         },
         "relationships" : [ {
+          "description" : "Auth requests",
           "destinationId" : "5",
-          "id" : "11",
+          "id" : "17",
           "sourceId" : "4",
-          "tags" : "Relationship"
+          "tags" : "Relationship",
+          "technology" : "HTTP"
         }, {
+          "description" : "User requests",
           "destinationId" : "6",
-          "id" : "12",
+          "id" : "18",
           "sourceId" : "4",
-          "tags" : "Relationship"
+          "tags" : "Relationship",
+          "technology" : "HTTP"
+        }, {
+          "description" : "Account requests",
+          "destinationId" : "7",
+          "id" : "19",
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "HTTP"
+        }, {
+          "description" : "Transaction requets",
+          "destinationId" : "8",
+          "id" : "20",
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "HTTP"
         } ],
         "tags" : "Element,Container,Gateway",
         "technology" : "Kong"
       }, {
-        "description" : "Manage user",
+        "description" : "Handles authentication and sessions",
         "documentation" : { },
         "id" : "5",
+        "name" : "Auth Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "DuckBank.authService"
+        },
+        "relationships" : [ {
+          "description" : "Stores sessions",
+          "destinationId" : "13",
+          "id" : "21",
+          "sourceId" : "5",
+          "tags" : "Relationship",
+          "technology" : "TCP"
+        } ],
+        "tags" : "Element,Container,Service",
+        "technology" : "Symfony"
+      }, {
+        "description" : "Manages user data and lifecycle",
+        "documentation" : { },
+        "id" : "6",
         "name" : "User Service",
         "properties" : {
           "structurizr.dsl.identifier" : "DuckBank.userService"
         },
         "relationships" : [ {
-          "destinationId" : "7",
-          "id" : "13",
-          "sourceId" : "5",
-          "tags" : "Relationship"
-        } ],
-        "tags" : "Element,Container,API",
-        "technology" : "Symfony"
-      }, {
-        "description" : "Manage account",
-        "documentation" : { },
-        "id" : "6",
-        "name" : "Account Service",
-        "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.acctountService"
-        },
-        "relationships" : [ {
-          "destinationId" : "7",
-          "id" : "14",
+          "description" : "Reads/Writes",
+          "destinationId" : "9",
+          "id" : "22",
           "sourceId" : "6",
-          "tags" : "Relationship"
+          "tags" : "Relationship",
+          "technology" : "TCP"
         } ],
-        "tags" : "Element,Container,API",
+        "tags" : "Element,Container,Service",
         "technology" : "Symfony"
       }, {
+        "description" : "Manages accounts and balances",
         "documentation" : { },
         "id" : "7",
-        "name" : "Database Schema",
+        "name" : "Account Service",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.database"
+          "structurizr.dsl.identifier" : "DuckBank.accaountService"
+        },
+        "relationships" : [ {
+          "description" : "Reads/Writes",
+          "destinationId" : "10",
+          "id" : "23",
+          "sourceId" : "7",
+          "tags" : "Relationship",
+          "technology" : "TCP"
+        } ],
+        "tags" : "Element,Container,Service",
+        "technology" : "Go Lang"
+      }, {
+        "description" : "Handles transactions and orchestrates transfers",
+        "documentation" : { },
+        "id" : "8",
+        "name" : "Transaction Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "DuckBank.transactionService"
+        },
+        "relationships" : [ {
+          "description" : "Reads/Writes",
+          "destinationId" : "11",
+          "id" : "24",
+          "sourceId" : "8",
+          "tags" : "Relationship",
+          "technology" : "TCP"
+        }, {
+          "description" : "Publish TransactionCreated",
+          "destinationId" : "12",
+          "id" : "25",
+          "sourceId" : "8",
+          "tags" : "Relationship",
+          "technology" : "AMQP"
+        }, {
+          "description" : "Debit/Credit account",
+          "destinationId" : "7",
+          "id" : "26",
+          "sourceId" : "8",
+          "tags" : "Relationship",
+          "technology" : "HTTP"
+        } ],
+        "tags" : "Element,Container,Service",
+        "technology" : "HyperF"
+      }, {
+        "description" : "Stores user data",
+        "documentation" : { },
+        "id" : "9",
+        "name" : "User Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "DuckBank.userDatabase"
         },
         "tags" : "Element,Container,Database",
         "technology" : "PostgreSQL"
+      }, {
+        "description" : "Stores account data",
+        "documentation" : { },
+        "id" : "10",
+        "name" : "Account Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "DuckBank.accaountDatabase"
+        },
+        "tags" : "Element,Container,Database",
+        "technology" : "PostgreSQL"
+      }, {
+        "description" : "Stores transaction data",
+        "documentation" : { },
+        "id" : "11",
+        "name" : "Transaction Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "DuckBank.transactionDatabase"
+        },
+        "tags" : "Element,Container,Database",
+        "technology" : "PostgreSQL"
+      }, {
+        "description" : "Event-driven communication",
+        "documentation" : { },
+        "id" : "12",
+        "name" : "Message Broker",
+        "properties" : {
+          "structurizr.dsl.identifier" : "DuckBank.queue"
+        },
+        "tags" : "Element,Container,Queue",
+        "technology" : "RabbitMQ"
+      }, {
+        "description" : "Cache, sessions and temporary data",
+        "documentation" : { },
+        "id" : "13",
+        "name" : "Database Memory",
+        "properties" : {
+          "structurizr.dsl.identifier" : "DuckBank.memoryDatabase"
+        },
+        "tags" : "Element,Container,Database",
+        "technology" : "Redis"
       } ],
       "description" : "Banking services platform",
       "documentation" : { },
@@ -117,8 +235,8 @@
   },
   "name" : "DuckBank",
   "properties" : {
-    "structurizr.inspection.error" : "17",
-    "structurizr.dsl" : "d29ya3NwYWNlICJEdWNrQmFuayIgIiIgewogICAgIWlkZW50aWZpZXJzIGhpZXJhcmNoaWNhbAoKICAgIG1vZGVsIHsKICAgICAgICB1c2VyID0gcGVyc29uICJVc2VyIiAiVXNlciB3aG8gd2lsbCBtYW5hZ2UgeW91ciBiYW5rIGFjY291bnQiCiAgICAgICAgRHVja0JhbmsgPSBzb2Z0d2FyZVN5c3RlbSAiRHVja0JhbmsiICJCYW5raW5nIHNlcnZpY2VzIHBsYXRmb3JtIiB7CiAgICAgICAgICAgIHdlYiA9IGNvbnRhaW5lciAiV2ViIEFwcGxpY2F0aW9uIiAiIiAiUmVhY3QiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIldlYiBBcHBsaWNhdGlvbiIKICAgICAgICAgICAgfQogICAgICAgICAgICBnYXRld2F5ID0gY29udGFpbmVyICJBUEkgR2F0ZXdheSIgIlJlZGlyZWN0cyB0cmFmZmljIiAiS29uZyIgewogICAgICAgICAgICAgICAgdGFncyAiR2F0ZXdheSIKICAgICAgICAgICAgfQogICAgICAgICAgICB1c2VyU2VydmljZSA9IGNvbnRhaW5lciAiVXNlciBTZXJ2aWNlIiAiTWFuYWdlIHVzZXIiICJTeW1mb255IiB7CiAgICAgICAgICAgICAgICB0YWdzICJBUEkiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYWNjdG91bnRTZXJ2aWNlID0gY29udGFpbmVyICJBY2NvdW50IFNlcnZpY2UiICJNYW5hZ2UgYWNjb3VudCIgIlN5bWZvbnkiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkFQSSIKICAgICAgICAgICAgfQogICAgICAgICAgICBkYXRhYmFzZSA9IGNvbnRhaW5lciAiRGF0YWJhc2UgU2NoZW1hIiAiIiAiUG9zdGdyZVNRTCIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICAgICAgdXNlciAtPiBEdWNrQmFuayAiTWFuYWdlIHlvdXIgYmFuayBhY2NvdW50IgogICAgICAgIHVzZXIgLT4gRHVja0Jhbmsud2ViICJVc2VzIgogICAgICAgIER1Y2tCYW5rLndlYiAtPiBEdWNrQmFuay5nYXRld2F5ICIiCiAgICAgICAgRHVja0JhbmsuZ2F0ZXdheSAtPiBEdWNrQmFuay51c2VyU2VydmljZSAiIgogICAgICAgIER1Y2tCYW5rLmdhdGV3YXkgLT4gRHVja0JhbmsuYWNjdG91bnRTZXJ2aWNlICIiCiAgICAgICAgRHVja0JhbmsudXNlclNlcnZpY2UgLT4gRHVja0JhbmsuZGF0YWJhc2UgIiIKICAgICAgICBEdWNrQmFuay5hY2N0b3VudFNlcnZpY2UgLT4gRHVja0JhbmsuZGF0YWJhc2UgIiIKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgc3lzdGVtQ29udGV4dCBEdWNrQmFuayAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICB9CiAgICAgICAgY29udGFpbmVyIER1Y2tCYW5rICJDb250YWluZXIiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIGVsZW1lbnQgIkVsZW1lbnQiIHsKICAgICAgICAgICAgICAgIGNvbG9yIHdoaXRlCiAgICAgICAgICAgICAgICBzdHJva2VXaWR0aCA0CiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiU29mdHdhcmUgU3lzdGVtIiB7CiAgICAgICAgICAgICAgICBzdHJva2UgIzExNjhCRAogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIlBlcnNvbiIgewogICAgICAgICAgICAgICAgc2hhcGUgcGVyc29uCiAgICAgICAgICAgICAgICBzdHJva2UgIzJhN2QwNQogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkRhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBjeWxpbmRlcgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQp9",
+    "structurizr.inspection.error" : "3",
+    "structurizr.dsl" : "d29ya3NwYWNlICJEdWNrQmFuayIgIiIgewogICAgIWlkZW50aWZpZXJzIGhpZXJhcmNoaWNhbAoKICAgIG1vZGVsIHsKICAgICAgICB1c2VyID0gcGVyc29uICJVc2VyIiAiVXNlciB3aG8gbWFuYWdlcyBiYW5rIGFjY291bnRzIgogICAgICAgIER1Y2tCYW5rID0gc29mdHdhcmVTeXN0ZW0gIkR1Y2tCYW5rIiAiQmFua2luZyBzZXJ2aWNlcyBwbGF0Zm9ybSIgewogICAgICAgICAgICB3ZWIgPSBjb250YWluZXIgIldlYiBBcHBsaWNhdGlvbiIgIkZyb250ZW5kIEFwcGxpY2F0aW9uIiAiUmVhY3QiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIldlYiBBcHBsaWNhdGlvbiIKICAgICAgICAgICAgfQogICAgICAgICAgICBnYXRld2F5ID0gY29udGFpbmVyICJBUEkgR2F0ZXdheSIgIkhhbmRsZXMgcm91dGluZyBhbmQgcmF0ZSBsaW1pdGluZyIgIktvbmciIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkdhdGV3YXkiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYXV0aFNlcnZpY2UgPSBjb250YWluZXIgIkF1dGggU2VydmljZSIgIkhhbmRsZXMgYXV0aGVudGljYXRpb24gYW5kIHNlc3Npb25zIiAiU3ltZm9ueSIgewogICAgICAgICAgICAgICAgdGFncyAiU2VydmljZSIKICAgICAgICAgICAgfQogICAgICAgICAgICB1c2VyU2VydmljZSA9IGNvbnRhaW5lciAiVXNlciBTZXJ2aWNlIiAiTWFuYWdlcyB1c2VyIGRhdGEgYW5kIGxpZmVjeWNsZSIgIlN5bWZvbnkiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYWNjYW91bnRTZXJ2aWNlID0gY29udGFpbmVyICJBY2NvdW50IFNlcnZpY2UiICJNYW5hZ2VzIGFjY291bnRzIGFuZCBiYWxhbmNlcyIgIkdvIExhbmciIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgdHJhbnNhY3Rpb25TZXJ2aWNlID0gY29udGFpbmVyICJUcmFuc2FjdGlvbiBTZXJ2aWNlIiAiSGFuZGxlcyB0cmFuc2FjdGlvbnMgYW5kIG9yY2hlc3RyYXRlcyB0cmFuc2ZlcnMiICJIeXBlckYiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgdXNlckRhdGFiYXNlID0gY29udGFpbmVyICJVc2VyIERhdGFiYXNlIiAiU3RvcmVzIHVzZXIgZGF0YSIgIlBvc3RncmVTUUwiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGFjY2FvdW50RGF0YWJhc2UgPSBjb250YWluZXIgIkFjY291bnQgRGF0YWJhc2UiICJTdG9yZXMgYWNjb3VudCBkYXRhIiAiUG9zdGdyZVNRTCIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgdHJhbnNhY3Rpb25EYXRhYmFzZSA9IGNvbnRhaW5lciAiVHJhbnNhY3Rpb24gRGF0YWJhc2UiICJTdG9yZXMgdHJhbnNhY3Rpb24gZGF0YSIgIlBvc3RncmVTUUwiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIHF1ZXVlID0gY29udGFpbmVyICJNZXNzYWdlIEJyb2tlciIgIkV2ZW50LWRyaXZlbiBjb21tdW5pY2F0aW9uIiAiUmFiYml0TVEiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlF1ZXVlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIG1lbW9yeURhdGFiYXNlID0gY29udGFpbmVyICJEYXRhYmFzZSBNZW1vcnkiICJDYWNoZSwgc2Vzc2lvbnMgYW5kIHRlbXBvcmFyeSBkYXRhIiAiUmVkaXMiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIHVzZXIgLT4gRHVja0Jhbmsud2ViICJVc2VzIiAiSFRUUCIKICAgICAgICBEdWNrQmFuay53ZWIgLT4gRHVja0JhbmsuZ2F0ZXdheSAiU2VuZCByZXF1ZXN0IiAiSFRUUCIKICAgICAgICBEdWNrQmFuay5nYXRld2F5IC0+IER1Y2tCYW5rLmF1dGhTZXJ2aWNlICJBdXRoIHJlcXVlc3RzIiAiSFRUUCIKICAgICAgICBEdWNrQmFuay5nYXRld2F5IC0+IER1Y2tCYW5rLnVzZXJTZXJ2aWNlICJVc2VyIHJlcXVlc3RzIiAiSFRUUCIKICAgICAgICBEdWNrQmFuay5nYXRld2F5IC0+IER1Y2tCYW5rLmFjY2FvdW50U2VydmljZSAiQWNjb3VudCByZXF1ZXN0cyIgIkhUVFAiCiAgICAgICAgRHVja0JhbmsuZ2F0ZXdheSAtPiBEdWNrQmFuay50cmFuc2FjdGlvblNlcnZpY2UgIlRyYW5zYWN0aW9uIHJlcXVldHMiICJIVFRQIgogICAgICAgIER1Y2tCYW5rLmF1dGhTZXJ2aWNlIC0+IER1Y2tCYW5rLm1lbW9yeURhdGFiYXNlICJTdG9yZXMgc2Vzc2lvbnMiICJUQ1AiCiAgICAgICAgRHVja0JhbmsudXNlclNlcnZpY2UgLT4gRHVja0JhbmsudXNlckRhdGFiYXNlICJSZWFkcy9Xcml0ZXMiICJUQ1AiCiAgICAgICAgRHVja0JhbmsuYWNjYW91bnRTZXJ2aWNlIC0+IER1Y2tCYW5rLmFjY2FvdW50RGF0YWJhc2UgIlJlYWRzL1dyaXRlcyIgIlRDUCIKICAgICAgICBEdWNrQmFuay50cmFuc2FjdGlvblNlcnZpY2UgLT4gRHVja0JhbmsudHJhbnNhY3Rpb25EYXRhYmFzZSAiUmVhZHMvV3JpdGVzIiAiVENQIgogICAgICAgIER1Y2tCYW5rLnRyYW5zYWN0aW9uU2VydmljZSAtPiBEdWNrQmFuay5xdWV1ZSAiUHVibGlzaCBUcmFuc2FjdGlvbkNyZWF0ZWQiICJBTVFQIgogICAgICAgIER1Y2tCYW5rLnRyYW5zYWN0aW9uU2VydmljZSAtPiBEdWNrQmFuay5hY2Nhb3VudFNlcnZpY2UgIkRlYml0L0NyZWRpdCBhY2NvdW50IiAiSFRUUCIKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgc3lzdGVtQ29udGV4dCBEdWNrQmFuayAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgIH0KICAgICAgICBjb250YWluZXIgRHVja0JhbmsgIkNvbnRhaW5lciIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgIH0KICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJFbGVtZW50IiB7CiAgICAgICAgICAgICAgICBjb2xvciB3aGl0ZQogICAgICAgICAgICAgICAgc3Ryb2tlV2lkdGggNAogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIlNvZnR3YXJlIFN5c3RlbSIgewogICAgICAgICAgICAgICAgc3Ryb2tlICMxMTY4QkQKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJQZXJzb24iIHsKICAgICAgICAgICAgICAgIHNoYXBlIHBlcnNvbgogICAgICAgICAgICAgICAgc3Ryb2tlICMyYTdkMDUKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgY3lsaW5kZXIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJRdWV1ZSIgewogICAgICAgICAgICAgICAgc2hhcGUgUm91bmRlZEJveAogICAgICAgICAgICAgICAgY29sb3IgIiNmZmZmZmYiCiAgICAgICAgICAgICAgICBib3JkZXIgIkRhc2hlZCIKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KfQ==",
     "structurizr.inspection.info" : "0",
     "structurizr.inspection.ignore" : "0",
     "structurizr.inspection.warning" : "0"
@@ -138,6 +256,11 @@
           "stroke" : "#2a7d05",
           "tag" : "Person"
         }, {
+          "border" : "Dashed",
+          "color" : "#ffffff",
+          "shape" : "RoundedBox",
+          "tag" : "Queue"
+        }, {
           "stroke" : "#1168bd",
           "tag" : "Software System"
         } ]
@@ -145,6 +268,13 @@
       "terminology" : { }
     },
     "containerViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
       "elements" : [ {
         "id" : "1",
         "x" : 0,
@@ -169,27 +299,70 @@
         "id" : "7",
         "x" : 0,
         "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
       } ],
       "externalSoftwareSystemBoundariesVisible" : false,
       "key" : "Container",
       "name" : "Container View: DuckBank",
       "order" : 2,
       "relationships" : [ {
-        "id" : "10"
-      }, {
-        "id" : "11"
-      }, {
-        "id" : "12"
-      }, {
-        "id" : "13"
-      }, {
         "id" : "14"
       }, {
-        "id" : "9"
+        "id" : "16"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "18"
+      }, {
+        "id" : "19"
+      }, {
+        "id" : "20"
+      }, {
+        "id" : "21"
+      }, {
+        "id" : "22"
+      }, {
+        "id" : "23"
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "26"
       } ],
       "softwareSystemId" : "2"
     } ],
     "systemContextViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
       "elements" : [ {
         "id" : "1",
         "x" : 0,
@@ -204,7 +377,7 @@
       "name" : "System Context View: DuckBank",
       "order" : 1,
       "relationships" : [ {
-        "id" : "8"
+        "id" : "15"
       } ],
       "softwareSystemId" : "2"
     } ]
