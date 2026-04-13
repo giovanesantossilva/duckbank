@@ -1,8 +1,11 @@
 {
-  "configuration" : { },
+  "configuration" : {
+    "scope" : "SoftwareSystem"
+  },
+  "description" : " DuckBank",
   "documentation" : { },
   "id" : 1,
-  "lastModifiedDate" : "2026-03-30T17:52:06Z",
+  "lastModifiedDate" : "2026-04-13T18:28:53Z",
   "model" : {
     "people" : [ {
       "description" : "User who manages bank accounts",
@@ -14,15 +17,15 @@
       "relationships" : [ {
         "description" : "Uses",
         "destinationId" : "3",
-        "id" : "14",
+        "id" : "18",
         "sourceId" : "1",
         "tags" : "Relationship",
         "technology" : "HTTP"
       }, {
         "description" : "Uses",
         "destinationId" : "2",
-        "id" : "15",
-        "linkedRelationshipId" : "14",
+        "id" : "19",
+        "linkedRelationshipId" : "18",
         "sourceId" : "1",
         "technology" : "HTTP"
       } ],
@@ -30,17 +33,17 @@
     } ],
     "softwareSystems" : [ {
       "containers" : [ {
-        "description" : "Frontend Application",
+        "description" : "Web Application",
         "documentation" : { },
         "id" : "3",
         "name" : "Web Application",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.web"
+          "structurizr.dsl.identifier" : "duckbank.web"
         },
         "relationships" : [ {
           "description" : "Send request",
           "destinationId" : "4",
-          "id" : "16",
+          "id" : "20",
           "sourceId" : "3",
           "tags" : "Relationship",
           "technology" : "HTTP"
@@ -53,33 +56,40 @@
         "id" : "4",
         "name" : "API Gateway",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.gateway"
+          "structurizr.dsl.identifier" : "duckbank.gateway"
         },
         "relationships" : [ {
           "description" : "Auth requests",
           "destinationId" : "5",
-          "id" : "17",
+          "id" : "21",
           "sourceId" : "4",
           "tags" : "Relationship",
           "technology" : "HTTP"
         }, {
           "description" : "User requests",
           "destinationId" : "6",
-          "id" : "18",
+          "id" : "22",
           "sourceId" : "4",
           "tags" : "Relationship",
           "technology" : "HTTP"
         }, {
           "description" : "Account requests",
           "destinationId" : "7",
-          "id" : "19",
+          "id" : "23",
           "sourceId" : "4",
           "tags" : "Relationship",
           "technology" : "HTTP"
         }, {
           "description" : "Transaction requets",
           "destinationId" : "8",
-          "id" : "20",
+          "id" : "24",
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "HTTP"
+        }, {
+          "description" : "Fraud requets",
+          "destinationId" : "10",
+          "id" : "25",
           "sourceId" : "4",
           "tags" : "Relationship",
           "technology" : "HTTP"
@@ -92,12 +102,12 @@
         "id" : "5",
         "name" : "Auth Service",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.authService"
+          "structurizr.dsl.identifier" : "duckbank.authService"
         },
         "relationships" : [ {
           "description" : "Stores sessions",
-          "destinationId" : "13",
-          "id" : "21",
+          "destinationId" : "16",
+          "id" : "26",
           "sourceId" : "5",
           "tags" : "Relationship",
           "technology" : "TCP"
@@ -105,17 +115,17 @@
         "tags" : "Element,Container,Service",
         "technology" : "Symfony"
       }, {
-        "description" : "Manages user data and lifecycle",
+        "description" : "Handles user data and lifecycle",
         "documentation" : { },
         "id" : "6",
         "name" : "User Service",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.userService"
+          "structurizr.dsl.identifier" : "duckbank.userService"
         },
         "relationships" : [ {
           "description" : "Reads/Writes",
-          "destinationId" : "9",
-          "id" : "22",
+          "destinationId" : "12",
+          "id" : "27",
           "sourceId" : "6",
           "tags" : "Relationship",
           "technology" : "TCP"
@@ -123,17 +133,17 @@
         "tags" : "Element,Container,Service",
         "technology" : "Symfony"
       }, {
-        "description" : "Manages accounts and balances",
+        "description" : "Handles accounts and balances",
         "documentation" : { },
         "id" : "7",
         "name" : "Account Service",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.accaountService"
+          "structurizr.dsl.identifier" : "duckbank.accaountService"
         },
         "relationships" : [ {
           "description" : "Reads/Writes",
-          "destinationId" : "10",
-          "id" : "23",
+          "destinationId" : "13",
+          "id" : "28",
           "sourceId" : "7",
           "tags" : "Relationship",
           "technology" : "TCP"
@@ -141,102 +151,165 @@
         "tags" : "Element,Container,Service",
         "technology" : "Go Lang"
       }, {
-        "description" : "Handles transactions and orchestrates transfers",
+        "description" : "Handles transactions and transfers",
         "documentation" : { },
         "id" : "8",
         "name" : "Transaction Service",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.transactionService"
+          "structurizr.dsl.identifier" : "duckbank.transactionService"
         },
         "relationships" : [ {
           "description" : "Reads/Writes",
-          "destinationId" : "11",
-          "id" : "24",
+          "destinationId" : "14",
+          "id" : "29",
           "sourceId" : "8",
           "tags" : "Relationship",
           "technology" : "TCP"
         }, {
-          "description" : "Publish TransactionCreated",
-          "destinationId" : "12",
-          "id" : "25",
+          "description" : "Payment Gateway",
+          "destinationId" : "11",
+          "id" : "30",
           "sourceId" : "8",
           "tags" : "Relationship",
-          "technology" : "AMQP"
+          "technology" : "gRPC"
+        }, {
+          "description" : "Publish TransactionCreated",
+          "destinationId" : "17",
+          "id" : "31",
+          "sourceId" : "8",
+          "tags" : "Relationship",
+          "technology" : "TCP"
         }, {
           "description" : "Debit/Credit account",
           "destinationId" : "7",
-          "id" : "26",
+          "id" : "32",
           "sourceId" : "8",
           "tags" : "Relationship",
-          "technology" : "HTTP"
+          "technology" : "gRPC"
+        } ],
+        "tags" : "Element,Container,Service",
+        "technology" : "Go Lang"
+      }, {
+        "description" : "Handles notification",
+        "documentation" : { },
+        "id" : "9",
+        "name" : "Notification Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "duckbank.notificationService"
+        },
+        "relationships" : [ {
+          "description" : "Consume TransactionCreated",
+          "destinationId" : "17",
+          "id" : "34",
+          "sourceId" : "9",
+          "tags" : "Relationship",
+          "technology" : "TCP"
         } ],
         "tags" : "Element,Container,Service",
         "technology" : "HyperF"
       }, {
+        "description" : "Handles fraud",
+        "documentation" : { },
+        "id" : "10",
+        "name" : "Fraud Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "duckbank.fraudService"
+        },
+        "relationships" : [ {
+          "description" : "Reads/Writes",
+          "destinationId" : "15",
+          "id" : "33",
+          "sourceId" : "10",
+          "tags" : "Relationship",
+          "technology" : "TCP"
+        } ],
+        "tags" : "Element,Container,Service",
+        "technology" : "Python"
+      }, {
+        "description" : "Handles payment",
+        "documentation" : { },
+        "id" : "11",
+        "name" : "Payment Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "duckbank.payementService"
+        },
+        "tags" : "Element,Container,Service",
+        "technology" : "Go Lang"
+      }, {
         "description" : "Stores user data",
         "documentation" : { },
-        "id" : "9",
+        "id" : "12",
         "name" : "User Database",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.userDatabase"
+          "structurizr.dsl.identifier" : "duckbank.userDatabase"
         },
         "tags" : "Element,Container,Database",
         "technology" : "PostgreSQL"
       }, {
         "description" : "Stores account data",
         "documentation" : { },
-        "id" : "10",
+        "id" : "13",
         "name" : "Account Database",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.accaountDatabase"
+          "structurizr.dsl.identifier" : "duckbank.accaountDatabase"
         },
         "tags" : "Element,Container,Database",
         "technology" : "PostgreSQL"
       }, {
         "description" : "Stores transaction data",
         "documentation" : { },
-        "id" : "11",
+        "id" : "14",
         "name" : "Transaction Database",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.transactionDatabase"
+          "structurizr.dsl.identifier" : "duckbank.transactionDatabase"
         },
         "tags" : "Element,Container,Database",
         "technology" : "PostgreSQL"
       }, {
-        "description" : "Event-driven communication",
+        "description" : "Store fraud data",
         "documentation" : { },
-        "id" : "12",
-        "name" : "Message Broker",
+        "id" : "15",
+        "name" : "Fraud Database",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.queue"
+          "structurizr.dsl.identifier" : "duckbank.fraudDatabase"
         },
-        "tags" : "Element,Container,Queue",
-        "technology" : "RabbitMQ"
+        "tags" : "Element,Container,Database",
+        "technology" : "MongoDB"
       }, {
         "description" : "Cache, sessions and temporary data",
         "documentation" : { },
-        "id" : "13",
+        "id" : "16",
         "name" : "Database Memory",
         "properties" : {
-          "structurizr.dsl.identifier" : "DuckBank.memoryDatabase"
+          "structurizr.dsl.identifier" : "duckbank.memoryDatabase"
         },
         "tags" : "Element,Container,Database",
         "technology" : "Redis"
+      }, {
+        "description" : "Event-driven communication",
+        "documentation" : { },
+        "id" : "17",
+        "name" : "Message Broker",
+        "properties" : {
+          "structurizr.dsl.identifier" : "duckbank.queue"
+        },
+        "tags" : "Element,Container,Queue",
+        "technology" : "Kafka"
       } ],
       "description" : "Banking services platform",
       "documentation" : { },
       "id" : "2",
       "name" : "DuckBank",
       "properties" : {
-        "structurizr.dsl.identifier" : "DuckBank"
+        "structurizr.dsl.identifier" : "duckbank"
       },
       "tags" : "Element,Software System"
     } ]
   },
-  "name" : "DuckBank",
+  "name" : "The Only Ducks",
   "properties" : {
-    "structurizr.inspection.error" : "3",
-    "structurizr.dsl" : "d29ya3NwYWNlICJEdWNrQmFuayIgIiIgewogICAgIWlkZW50aWZpZXJzIGhpZXJhcmNoaWNhbAoKICAgIG1vZGVsIHsKICAgICAgICB1c2VyID0gcGVyc29uICJVc2VyIiAiVXNlciB3aG8gbWFuYWdlcyBiYW5rIGFjY291bnRzIgogICAgICAgIER1Y2tCYW5rID0gc29mdHdhcmVTeXN0ZW0gIkR1Y2tCYW5rIiAiQmFua2luZyBzZXJ2aWNlcyBwbGF0Zm9ybSIgewogICAgICAgICAgICB3ZWIgPSBjb250YWluZXIgIldlYiBBcHBsaWNhdGlvbiIgIkZyb250ZW5kIEFwcGxpY2F0aW9uIiAiUmVhY3QiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIldlYiBBcHBsaWNhdGlvbiIKICAgICAgICAgICAgfQogICAgICAgICAgICBnYXRld2F5ID0gY29udGFpbmVyICJBUEkgR2F0ZXdheSIgIkhhbmRsZXMgcm91dGluZyBhbmQgcmF0ZSBsaW1pdGluZyIgIktvbmciIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkdhdGV3YXkiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYXV0aFNlcnZpY2UgPSBjb250YWluZXIgIkF1dGggU2VydmljZSIgIkhhbmRsZXMgYXV0aGVudGljYXRpb24gYW5kIHNlc3Npb25zIiAiU3ltZm9ueSIgewogICAgICAgICAgICAgICAgdGFncyAiU2VydmljZSIKICAgICAgICAgICAgfQogICAgICAgICAgICB1c2VyU2VydmljZSA9IGNvbnRhaW5lciAiVXNlciBTZXJ2aWNlIiAiTWFuYWdlcyB1c2VyIGRhdGEgYW5kIGxpZmVjeWNsZSIgIlN5bWZvbnkiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYWNjYW91bnRTZXJ2aWNlID0gY29udGFpbmVyICJBY2NvdW50IFNlcnZpY2UiICJNYW5hZ2VzIGFjY291bnRzIGFuZCBiYWxhbmNlcyIgIkdvIExhbmciIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgdHJhbnNhY3Rpb25TZXJ2aWNlID0gY29udGFpbmVyICJUcmFuc2FjdGlvbiBTZXJ2aWNlIiAiSGFuZGxlcyB0cmFuc2FjdGlvbnMgYW5kIG9yY2hlc3RyYXRlcyB0cmFuc2ZlcnMiICJIeXBlckYiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgdXNlckRhdGFiYXNlID0gY29udGFpbmVyICJVc2VyIERhdGFiYXNlIiAiU3RvcmVzIHVzZXIgZGF0YSIgIlBvc3RncmVTUUwiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGFjY2FvdW50RGF0YWJhc2UgPSBjb250YWluZXIgIkFjY291bnQgRGF0YWJhc2UiICJTdG9yZXMgYWNjb3VudCBkYXRhIiAiUG9zdGdyZVNRTCIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgdHJhbnNhY3Rpb25EYXRhYmFzZSA9IGNvbnRhaW5lciAiVHJhbnNhY3Rpb24gRGF0YWJhc2UiICJTdG9yZXMgdHJhbnNhY3Rpb24gZGF0YSIgIlBvc3RncmVTUUwiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIHF1ZXVlID0gY29udGFpbmVyICJNZXNzYWdlIEJyb2tlciIgIkV2ZW50LWRyaXZlbiBjb21tdW5pY2F0aW9uIiAiUmFiYml0TVEiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlF1ZXVlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIG1lbW9yeURhdGFiYXNlID0gY29udGFpbmVyICJEYXRhYmFzZSBNZW1vcnkiICJDYWNoZSwgc2Vzc2lvbnMgYW5kIHRlbXBvcmFyeSBkYXRhIiAiUmVkaXMiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIHVzZXIgLT4gRHVja0Jhbmsud2ViICJVc2VzIiAiSFRUUCIKICAgICAgICBEdWNrQmFuay53ZWIgLT4gRHVja0JhbmsuZ2F0ZXdheSAiU2VuZCByZXF1ZXN0IiAiSFRUUCIKICAgICAgICBEdWNrQmFuay5nYXRld2F5IC0+IER1Y2tCYW5rLmF1dGhTZXJ2aWNlICJBdXRoIHJlcXVlc3RzIiAiSFRUUCIKICAgICAgICBEdWNrQmFuay5nYXRld2F5IC0+IER1Y2tCYW5rLnVzZXJTZXJ2aWNlICJVc2VyIHJlcXVlc3RzIiAiSFRUUCIKICAgICAgICBEdWNrQmFuay5nYXRld2F5IC0+IER1Y2tCYW5rLmFjY2FvdW50U2VydmljZSAiQWNjb3VudCByZXF1ZXN0cyIgIkhUVFAiCiAgICAgICAgRHVja0JhbmsuZ2F0ZXdheSAtPiBEdWNrQmFuay50cmFuc2FjdGlvblNlcnZpY2UgIlRyYW5zYWN0aW9uIHJlcXVldHMiICJIVFRQIgogICAgICAgIER1Y2tCYW5rLmF1dGhTZXJ2aWNlIC0+IER1Y2tCYW5rLm1lbW9yeURhdGFiYXNlICJTdG9yZXMgc2Vzc2lvbnMiICJUQ1AiCiAgICAgICAgRHVja0JhbmsudXNlclNlcnZpY2UgLT4gRHVja0JhbmsudXNlckRhdGFiYXNlICJSZWFkcy9Xcml0ZXMiICJUQ1AiCiAgICAgICAgRHVja0JhbmsuYWNjYW91bnRTZXJ2aWNlIC0+IER1Y2tCYW5rLmFjY2FvdW50RGF0YWJhc2UgIlJlYWRzL1dyaXRlcyIgIlRDUCIKICAgICAgICBEdWNrQmFuay50cmFuc2FjdGlvblNlcnZpY2UgLT4gRHVja0JhbmsudHJhbnNhY3Rpb25EYXRhYmFzZSAiUmVhZHMvV3JpdGVzIiAiVENQIgogICAgICAgIER1Y2tCYW5rLnRyYW5zYWN0aW9uU2VydmljZSAtPiBEdWNrQmFuay5xdWV1ZSAiUHVibGlzaCBUcmFuc2FjdGlvbkNyZWF0ZWQiICJBTVFQIgogICAgICAgIER1Y2tCYW5rLnRyYW5zYWN0aW9uU2VydmljZSAtPiBEdWNrQmFuay5hY2Nhb3VudFNlcnZpY2UgIkRlYml0L0NyZWRpdCBhY2NvdW50IiAiSFRUUCIKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgc3lzdGVtQ29udGV4dCBEdWNrQmFuayAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgIH0KICAgICAgICBjb250YWluZXIgRHVja0JhbmsgIkNvbnRhaW5lciIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgIH0KICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJFbGVtZW50IiB7CiAgICAgICAgICAgICAgICBjb2xvciB3aGl0ZQogICAgICAgICAgICAgICAgc3Ryb2tlV2lkdGggNAogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIlNvZnR3YXJlIFN5c3RlbSIgewogICAgICAgICAgICAgICAgc3Ryb2tlICMxMTY4QkQKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJQZXJzb24iIHsKICAgICAgICAgICAgICAgIHNoYXBlIHBlcnNvbgogICAgICAgICAgICAgICAgc3Ryb2tlICMyYTdkMDUKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgY3lsaW5kZXIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJRdWV1ZSIgewogICAgICAgICAgICAgICAgc2hhcGUgUm91bmRlZEJveAogICAgICAgICAgICAgICAgY29sb3IgIiNmZmZmZmYiCiAgICAgICAgICAgICAgICBib3JkZXIgIkRhc2hlZCIKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KfQ==",
+    "structurizr.inspection.error" : "2",
+    "structurizr.dsl" : "d29ya3NwYWNlICJUaGUgT25seSBEdWNrcyIgIiBEdWNrQmFuayIgewogICAgIWlkZW50aWZpZXJzIGhpZXJhcmNoaWNhbAoKICAgIGNvbmZpZ3VyYXRpb24gewogICAgICAgIHNjb3BlIHNvZnR3YXJlc3lzdGVtCiAgICB9CgogICAgbW9kZWwgewogICAgICAgIHVzZXIgPSBwZXJzb24gIlVzZXIiICJVc2VyIHdobyBtYW5hZ2VzIGJhbmsgYWNjb3VudHMiCiAgICAgICAgZHVja2JhbmsgPSBzb2Z0d2FyZVN5c3RlbSAiRHVja0JhbmsiICJCYW5raW5nIHNlcnZpY2VzIHBsYXRmb3JtIiB7CiAgICAgICAgICAgIHdlYiA9IGNvbnRhaW5lciAiV2ViIEFwcGxpY2F0aW9uIiAiV2ViIEFwcGxpY2F0aW9uIiAiUmVhY3QiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIldlYiBBcHBsaWNhdGlvbiIKICAgICAgICAgICAgfQogICAgICAgICAgICBnYXRld2F5ID0gY29udGFpbmVyICJBUEkgR2F0ZXdheSIgIkhhbmRsZXMgcm91dGluZyBhbmQgcmF0ZSBsaW1pdGluZyIgIktvbmciIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkdhdGV3YXkiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYXV0aFNlcnZpY2UgPSBjb250YWluZXIgIkF1dGggU2VydmljZSIgIkhhbmRsZXMgYXV0aGVudGljYXRpb24gYW5kIHNlc3Npb25zIiAiU3ltZm9ueSIgewogICAgICAgICAgICAgICAgdGFncyAiU2VydmljZSIKICAgICAgICAgICAgfQogICAgICAgICAgICB1c2VyU2VydmljZSA9IGNvbnRhaW5lciAiVXNlciBTZXJ2aWNlIiAiSGFuZGxlcyB1c2VyIGRhdGEgYW5kIGxpZmVjeWNsZSIgIlN5bWZvbnkiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYWNjYW91bnRTZXJ2aWNlID0gY29udGFpbmVyICJBY2NvdW50IFNlcnZpY2UiICJIYW5kbGVzIGFjY291bnRzIGFuZCBiYWxhbmNlcyIgIkdvIExhbmciIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgdHJhbnNhY3Rpb25TZXJ2aWNlID0gY29udGFpbmVyICJUcmFuc2FjdGlvbiBTZXJ2aWNlIiAiSGFuZGxlcyB0cmFuc2FjdGlvbnMgYW5kIHRyYW5zZmVycyIgIkdvIExhbmciIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgbm90aWZpY2F0aW9uU2VydmljZSA9IGNvbnRhaW5lciAiTm90aWZpY2F0aW9uIFNlcnZpY2UiICJIYW5kbGVzIG5vdGlmaWNhdGlvbiIgIkh5cGVyRiIgewogICAgICAgICAgICAgICAgdGFncyAiU2VydmljZSIKICAgICAgICAgICAgfQogICAgICAgICAgICBmcmF1ZFNlcnZpY2UgPSBjb250YWluZXIgIkZyYXVkIFNlcnZpY2UiICJIYW5kbGVzIGZyYXVkIiAiUHl0aG9uIiB7CiAgICAgICAgICAgICAgICB0YWdzICJTZXJ2aWNlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIHBheWVtZW50U2VydmljZSA9IGNvbnRhaW5lciAiUGF5bWVudCBTZXJ2aWNlIiAiSGFuZGxlcyBwYXltZW50IiAiR28gTGFuZyIgewogICAgICAgICAgICAgICAgdGFncyAiU2VydmljZSIKICAgICAgICAgICAgfQogICAgICAgICAgICB1c2VyRGF0YWJhc2UgPSBjb250YWluZXIgIlVzZXIgRGF0YWJhc2UiICJTdG9yZXMgdXNlciBkYXRhIiAiUG9zdGdyZVNRTCIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYWNjYW91bnREYXRhYmFzZSA9IGNvbnRhaW5lciAiQWNjb3VudCBEYXRhYmFzZSIgIlN0b3JlcyBhY2NvdW50IGRhdGEiICJQb3N0Z3JlU1FMIiB7CiAgICAgICAgICAgICAgICB0YWdzICJEYXRhYmFzZSIKICAgICAgICAgICAgfQogICAgICAgICAgICB0cmFuc2FjdGlvbkRhdGFiYXNlID0gY29udGFpbmVyICJUcmFuc2FjdGlvbiBEYXRhYmFzZSIgIlN0b3JlcyB0cmFuc2FjdGlvbiBkYXRhIiAiUG9zdGdyZVNRTCIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZnJhdWREYXRhYmFzZSA9IGNvbnRhaW5lciAiRnJhdWQgRGF0YWJhc2UiICJTdG9yZSBmcmF1ZCBkYXRhIiAiTW9uZ29EQiIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgbWVtb3J5RGF0YWJhc2UgPSBjb250YWluZXIgIkRhdGFiYXNlIE1lbW9yeSIgIkNhY2hlLCBzZXNzaW9ucyBhbmQgdGVtcG9yYXJ5IGRhdGEiICJSZWRpcyIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgcXVldWUgPSBjb250YWluZXIgIk1lc3NhZ2UgQnJva2VyIiAiRXZlbnQtZHJpdmVuIGNvbW11bmljYXRpb24iICJLYWZrYSIgewogICAgICAgICAgICAgICAgdGFncyAiUXVldWUiCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICAgICAgdXNlciAtPiBkdWNrYmFuay53ZWIgIlVzZXMiICJIVFRQIgogICAgICAgIGR1Y2tiYW5rLndlYiAtPiBkdWNrYmFuay5nYXRld2F5ICJTZW5kIHJlcXVlc3QiICJIVFRQIgogICAgICAgIGR1Y2tiYW5rLmdhdGV3YXkgLT4gZHVja2JhbmsuYXV0aFNlcnZpY2UgIkF1dGggcmVxdWVzdHMiICJIVFRQIgogICAgICAgIGR1Y2tiYW5rLmdhdGV3YXkgLT4gZHVja2JhbmsudXNlclNlcnZpY2UgIlVzZXIgcmVxdWVzdHMiICJIVFRQIgogICAgICAgIGR1Y2tiYW5rLmdhdGV3YXkgLT4gZHVja2JhbmsuYWNjYW91bnRTZXJ2aWNlICJBY2NvdW50IHJlcXVlc3RzIiAiSFRUUCIKICAgICAgICBkdWNrYmFuay5nYXRld2F5IC0+IGR1Y2tiYW5rLnRyYW5zYWN0aW9uU2VydmljZSAiVHJhbnNhY3Rpb24gcmVxdWV0cyIgIkhUVFAiCiAgICAgICAgZHVja2JhbmsuZ2F0ZXdheSAtPiBkdWNrYmFuay5mcmF1ZFNlcnZpY2UgIkZyYXVkIHJlcXVldHMiICJIVFRQIgogICAgICAgIGR1Y2tiYW5rLmF1dGhTZXJ2aWNlIC0+IGR1Y2tiYW5rLm1lbW9yeURhdGFiYXNlICJTdG9yZXMgc2Vzc2lvbnMiICJUQ1AiCiAgICAgICAgZHVja2JhbmsudXNlclNlcnZpY2UgLT4gZHVja2JhbmsudXNlckRhdGFiYXNlICJSZWFkcy9Xcml0ZXMiICJUQ1AiCiAgICAgICAgZHVja2JhbmsuYWNjYW91bnRTZXJ2aWNlIC0+IGR1Y2tiYW5rLmFjY2FvdW50RGF0YWJhc2UgIlJlYWRzL1dyaXRlcyIgIlRDUCIKICAgICAgICBkdWNrYmFuay50cmFuc2FjdGlvblNlcnZpY2UgLT4gZHVja2JhbmsudHJhbnNhY3Rpb25EYXRhYmFzZSAiUmVhZHMvV3JpdGVzIiAiVENQIgogICAgICAgIGR1Y2tiYW5rLnRyYW5zYWN0aW9uU2VydmljZSAtPiBkdWNrQmFuay5wYXllbWVudFNlcnZpY2UgIlBheW1lbnQgR2F0ZXdheSIgImdSUEMiCiAgICAgICAgZHVja2JhbmsudHJhbnNhY3Rpb25TZXJ2aWNlIC0+IGR1Y2tiYW5rLnF1ZXVlICJQdWJsaXNoIFRyYW5zYWN0aW9uQ3JlYXRlZCIgIlRDUCIKICAgICAgICBkdWNrYmFuay50cmFuc2FjdGlvblNlcnZpY2UgLT4gZHVja2JhbmsuYWNjYW91bnRTZXJ2aWNlICJEZWJpdC9DcmVkaXQgYWNjb3VudCIgImdSUEMiCiAgICAgICAgZHVja2JhbmsuZnJhdWRTZXJ2aWNlIC0+IGR1Y2tiYW5rLmZyYXVkRGF0YWJhc2UgIlJlYWRzL1dyaXRlcyIgIlRDUCIKICAgICAgICBkdWNrYmFuay5ub3RpZmljYXRpb25TZXJ2aWNlIC0+IGR1Y2tiYW5rLnF1ZXVlICJDb25zdW1lIFRyYW5zYWN0aW9uQ3JlYXRlZCIgIlRDUCIKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgc3lzdGVtQ29udGV4dCBkdWNrYmFuayAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgIH0KICAgICAgICBjb250YWluZXIgZHVja2JhbmsgIkNvbnRhaW5lciIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgIH0KICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJFbGVtZW50IiB7CiAgICAgICAgICAgICAgICBjb2xvciB3aGl0ZQogICAgICAgICAgICAgICAgc3Ryb2tlV2lkdGggNAogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIlNvZnR3YXJlIFN5c3RlbSIgewogICAgICAgICAgICAgICAgc3Ryb2tlICMxMTY4QkQKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJQZXJzb24iIHsKICAgICAgICAgICAgICAgIHNoYXBlIHBlcnNvbgogICAgICAgICAgICAgICAgc3Ryb2tlICMyYTdkMDUKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgY3lsaW5kZXIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJRdWV1ZSIgewogICAgICAgICAgICAgICAgc2hhcGUgcm91bmRlZEJveAogICAgICAgICAgICAgICAgY29sb3IgIiNmZmZmZmYiCiAgICAgICAgICAgICAgICBib3JkZXIgIkRhc2hlZCIKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KfQ==",
     "structurizr.inspection.info" : "0",
     "structurizr.inspection.ignore" : "0",
     "structurizr.inspection.warning" : "0"
@@ -323,21 +396,29 @@
         "id" : "13",
         "x" : 0,
         "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
       } ],
       "externalSoftwareSystemBoundariesVisible" : false,
       "key" : "Container",
       "name" : "Container View: DuckBank",
       "order" : 2,
       "relationships" : [ {
-        "id" : "14"
-      }, {
-        "id" : "16"
-      }, {
-        "id" : "17"
-      }, {
         "id" : "18"
-      }, {
-        "id" : "19"
       }, {
         "id" : "20"
       }, {
@@ -352,6 +433,22 @@
         "id" : "25"
       }, {
         "id" : "26"
+      }, {
+        "id" : "27"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "29"
+      }, {
+        "id" : "30"
+      }, {
+        "id" : "31"
+      }, {
+        "id" : "32"
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "34"
       } ],
       "softwareSystemId" : "2"
     } ],
@@ -377,7 +474,7 @@
       "name" : "System Context View: DuckBank",
       "order" : 1,
       "relationships" : [ {
-        "id" : "15"
+        "id" : "19"
       } ],
       "softwareSystemId" : "2"
     } ]
