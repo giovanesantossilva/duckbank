@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgre
+  namespace: duckbank
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: postgre
+  template:
+    metadata:
+      labels:
+        app: postgre
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:17
+          ports:
+            - containerPort: 5432
+              name: postgre
+          env:
+            - name: POSTGRES_DB
+              value: duckbank
+            - name: POSTGRES_USER
+              value: postgre
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgre-secret
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgre-storage
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          readinessProbe:
+            exec:
+              command: [ "pg_isready", "-U", "$(POSTGRES_USER)", "-d", "$(POSTGRES_DB)" ]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            exec:
+              command: [ "pg_isready", "-U", "$(POSTGRES_USER)" ]
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 5
+          startupProbe:
+            exec:
+              command: [ "pg_isready", "-U", "$(POSTGRES_USER)" ]
+            failureThreshold: 30
+            periodSeconds: 5
+  volumeClaimTemplates:
+    - metadata:
+        name: postgre-storage
+      spec:
+        storageClassName: standard
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 2Gi

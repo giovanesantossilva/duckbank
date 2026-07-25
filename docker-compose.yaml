@@ -1,2 +1,3 @@
 include:
+  - path: ./infra/docker/docker-compose.yaml
   - path: ./planing/docker-compose.yaml
