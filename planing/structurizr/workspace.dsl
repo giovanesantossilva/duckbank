@@ -17,7 +17,7 @@ workspace "The Only Ducks" " DuckBank" {
             authService = container "Auth Service" "Handles authentication and sessions" "Symfony" {
                 tags "Service"
             }
-            userService = container "User Service" "Handles user data and lifecycle" "Symfony" {
+            userService = container "User Service" "Handles user data and lifecycle" "Symfony 7 / PHP 8+" {
                 tags "Service"
             }
             accaountService = container "Account Service" "Handles accounts and balances" "Go Lang" {
