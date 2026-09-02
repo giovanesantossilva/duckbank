@@ -9,8 +9,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: duckbank
+      POSTGRES_USER: duckuser
+      POSTGRES_PASSWORD: kgb8y2kk
 volumes:
   postgres:
     driver: local

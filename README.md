@@ -1,51 +1,11 @@
 # DuckBank
-DuckBank is a white-label digital banking system developed for study purposes, focused on applying modern concepts of software engineering, systems architecture, and best practices.
 
-## Planing
+DuckBank is a white-label digital banking system developed for study purposes, focused on applying modern concepts of software engineering, distributed systems, software architecture, and industry best practices.
 
-### MVP (in definition)
+The project is designed as a technical laboratory for exploring the development and operation of a digital banking platform using modern architectural patterns and technologies.
 
-- Open account bank
-- Login in account
-- Check balance
-- Transaction in accounts
-- Account history
-- Notifications
+The main goal is not to build a production-ready banking system, but to provide a realistic environment for studying complex software engineering challenges such as microservices, distributed transactions, event-driven architecture, data consistency, observability, security, resilience, and scalability.
 
-### documentation
-- C4 Model (Structurizr)
-- MER (Lucidchart)
-- Event Sotorming 
+### Development
 
-## Technologies (in definition)
-
-### Front-end
-- React (Typescript)
-- Studying use
-  - Next.js
-  - Tailwindcss
-  - HeroUI
-  - Radix
-  - Shadcn/ui
-  - Ant Design
-  - React Bits
-  - Lucide
-
-### Back-end
-- PHP (Hyperf, Symfony)
-- Studying use
-  - Elixir (Phoenix)
-  - GO Lang
-  - Java (Spring)
-  - Bun
-
-### Mobile
-  - Flutter
-
-### Infrastructure
-- Kubernets (Kind)
-
-### Artificial intelligence
-- Python
-- Studying use
-  - C++
+`docker compose up`

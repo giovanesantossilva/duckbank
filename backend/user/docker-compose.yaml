@@ -1,0 +1,8 @@
+services:
+  user-service:
+      build: ./local
+      container_name: user-service
+      ports:
+          - "8000:8000"
+      volumes:
+          - .:/var/www/code
