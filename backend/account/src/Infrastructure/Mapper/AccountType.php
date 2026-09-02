@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Mapper;
 
-class User
+enum AccountType: string
 {
 
 }

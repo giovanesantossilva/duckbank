@@ -1,4 +1,4 @@
 include:
   - path: ./infra/docker/docker-compose.yaml
-  - path: ./backend/user/docker-compose.yaml
+  - path: ./backend/account/docker-compose.yaml
   - path: ./planing/docker-compose.yaml

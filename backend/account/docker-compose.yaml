@@ -1,7 +1,7 @@
 services:
-  user-service:
+  account-service:
       build: ./local
-      container_name: user-service
+      container_name: account-service
       ports:
           - "8000:8000"
       volumes:
