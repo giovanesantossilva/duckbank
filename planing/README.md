@@ -1,18 +1,12 @@
 # DuckBanck Planing
 
-### Ubiquitous Language
-User
-Account
-Transaction
-Balance
-Transfer
+As part of the DuckBank planning process, the following studies and diagrams were created to define the project's architecture, domain, and structure before development began:
 
-### Actions
-CreateUser
-CreateAccount
-TransferMoney
-GetBalance
+## Documents
 
-Account.debit()
-Account.credit()
-Transaction.process()
+- Event Sotorm
+- Domain Model
+- C4 Model
+- Sequence Diagram
+- Entity Relationship
+- FinOps Diagram
