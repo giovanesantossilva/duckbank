@@ -6,7 +6,7 @@ As part of the DuckBank planning process, the following studies and diagrams wer
 
 - Event Sotorm
 - Domain Model
-- C4 Model
+- C4 Model (in progress)
 - Sequence Diagram
 - Entity Relationship
 - FinOps Diagram
